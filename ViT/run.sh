@@ -1,5 +1,5 @@
 # imagenet21k pre-train
-wget https://storage.googleapis.com/vit_models/imagenet21k/ViT-B.npz
+wget https://storage.googleapis.com/vit_models/imagenet21k/ViT-B_16.npz
 
 # # imagenet21k pre-train + imagenet2012 fine-tuning
 # wget https://storage.googleapis.com/vit_models/imagenet21k+imagenet2012/ViT-B_16-224.npz
