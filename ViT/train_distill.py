@@ -256,7 +256,7 @@ def train(args, model):
     global_step, best_acc = 0, 0
     end = time.time()
     ##
-    loss_fct = CrossEntropyLoss()
+    loss_fct = torch.nn.CrossEntropyLoss()
     while True:
         model.train()
         epoch_iterator = tqdm(train_loader,
