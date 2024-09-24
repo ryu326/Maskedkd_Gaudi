@@ -113,7 +113,7 @@ def setup(args):
         drop_rate=0.,
         drop_path_rate=0.1
         )  
-    if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    if False: #os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
         model.load_from(np.load(args.pretrained_dir))
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
@@ -165,6 +165,8 @@ def valid(args, model, writer, test_loader, global_step):
             x, y = batch
             with torch.no_grad():
                 logits = model(x)[0]
+                if isinstance(logits, tuple):
+                    logits, attn = logits
 
                 eval_loss = loss_fct(logits, y)
                 eval_losses.update(eval_loss.item())
