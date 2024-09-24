@@ -165,8 +165,8 @@ def valid(args, model, writer, test_loader, global_step):
             x, y = batch
             with torch.no_grad():
                 logits = model(x)[0]
-                if isinstance(logits, tuple):
-                    logits, attn = logits
+                # if isinstance(logits, tuple):
+                #     logits, attn = logits
 
                 eval_loss = loss_fct(logits, y)
                 eval_losses.update(eval_loss.item())
@@ -255,6 +255,8 @@ def train(args, model):
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     end = time.time()
+    ##
+    loss_fct = CrossEntropyLoss()
     while True:
         model.train()
         epoch_iterator = tqdm(train_loader,
@@ -266,7 +268,10 @@ def train(args, model):
             with torch.autocast(device_type="hpu", dtype=torch.bfloat16, enabled=args.is_autocast):
                 batch = tuple(t.to(args.device) for t in batch)
                 x, y = batch
-                loss = model(x, y)
+                # loss = model(x, y)
+                logits = model(x)[0]
+                loss = loss_fct(logits.view(-1, 1000), y.view(-1))
+
 
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps
