@@ -107,7 +107,12 @@ def setup(args):
     else:
         num_classes = 100
 
-    model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
+    # model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
+    model = models_student.__dict__[deit_tiny_patch16_224](
+        num_classes=num_classes,
+        drop_rate=0.,
+        drop_path_rate=0.1
+        )  
     if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
         model.load_from(np.load(args.pretrained_dir))
     else:
