@@ -27,6 +27,7 @@ from vit_utils.dist_util import get_world_size
 import habana_frameworks.torch.core as htcore
 import habana_frameworks.torch.utils.debug as htdebug
 
+import models_student
 logger = logging.getLogger(__name__)
 
 def init_distributed_mode(args):
