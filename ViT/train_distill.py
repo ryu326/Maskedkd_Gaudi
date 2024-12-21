@@ -27,7 +27,8 @@ from vit_utils.dist_util import get_world_size
 import habana_frameworks.torch.core as htcore
 import habana_frameworks.torch.utils.debug as htdebug
 
-import models_student
+from losses import *
+
 logger = logging.getLogger(__name__)
 
 def init_distributed_mode(args):
@@ -99,6 +100,7 @@ def save_model(args, model, optimizer, scheduler):
 def setup(args):
     # Prepare model
     config = CONFIGS[args.model_type]
+    teacher_config = CONFIGS[args.teacher_model_type]
 
     if args.dataset == "cifar10":
         num_classes = 10
@@ -107,13 +109,8 @@ def setup(args):
     else:
         num_classes = 100
 
-    # model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
-    model = models_student.__dict__["deit_tiny_patch16_224"](
-        num_classes=num_classes,
-        drop_rate=0.,
-        drop_path_rate=0.1
-        )  
-    if False: #os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes, vis=True)
+    if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
         model.load_from(np.load(args.pretrained_dir))
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
@@ -123,13 +120,29 @@ def setup(args):
         model.load_state_dict(checkpoint['model'], strict=False)
 
     model.to(args.device)
-    num_params = count_parameters(model)
-
+    num_params = count_parameters(model)    
+    
+    teacher_model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
+    teacher_model.load_from(np.load(args.teacher_pretrained_dir))
+    teacher_model.to(args.device)
+    
     logger.info("{}".format(config))
+    logger.info("{}".format(teacher_config))
     logger.info("Training parameters %s", args)
     logger.info("Total Parameter: \t%2.1fM" % num_params)
     print(num_params)
-    return args, model
+    
+    loss_fct = DistillationLoss(
+            base_criterion=torch.nn.CrossEntropyLoss(), 
+            teacher_model=teacher_model,
+            distillation_type='soft',
+            alpha = 0.5,
+            float = 1,
+            len_num_keep = args.len_num_keep,
+            maskedkd = args.maskedkd
+        )
+    
+    return args, model, teacher_model, loss_fct
 
 
 def count_parameters(model):
@@ -165,8 +178,6 @@ def valid(args, model, writer, test_loader, global_step):
             x, y = batch
             with torch.no_grad():
                 logits = model(x)[0]
-                # if isinstance(logits, tuple):
-                #     logits, attn = logits
 
                 eval_loss = loss_fct(logits, y)
                 eval_losses.update(eval_loss.item())
@@ -198,7 +209,7 @@ def valid(args, model, writer, test_loader, global_step):
     return accuracy
 
 
-def train(args, model):
+def train(args, model, teacher_model, loss_fct):
     """ Train the model """
     if args.local_rank in [-1, 0]:
         os.makedirs(args.output_dir, exist_ok=True)
@@ -255,8 +266,6 @@ def train(args, model):
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     end = time.time()
-    ##
-    loss_fct = torch.nn.CrossEntropyLoss()
     while True:
         model.train()
         epoch_iterator = tqdm(train_loader,
@@ -269,8 +278,9 @@ def train(args, model):
                 batch = tuple(t.to(args.device) for t in batch)
                 x, y = batch
                 # loss = model(x, y)
-                logits = model(x)[0]
-                loss = loss_fct(logits.view(-1, 1000), y.view(-1))
+                logits, attn_weights = model(x)
+                # def forward(self, inputs, outputs, labels, attn):
+                loss = loss_fct(x, logits.view(-1, 1000), y.view(-1), attn_weights[-1])
 
 
             if args.gradient_accumulation_steps > 1:
@@ -339,6 +349,10 @@ def main():
                                                  "ViT-L_32", "ViT-H_14", "R50-ViT-B_16"],
                         default="ViT-B_16",
                         help="Which variant to use.")
+    parser.add_argument("--teacher_model_type", choices=["ViT-B_16", "ViT-B_32", "ViT-L_16",
+                                                "ViT-L_32", "ViT-H_14", "R50-ViT-B_16"],
+                    default="ViT-L_16",
+                    help="Which variant to use.")
     parser.add_argument("--pretrained_dir", type=str, default="checkpoint/ViT-B_16.npz",
                         help="Where to search for pretrained ViT models.")
     parser.add_argument("--output_dir", default="output", type=str,
@@ -391,6 +405,8 @@ def main():
                         help='run model in lazy execution mode(enabled by default).'
                         'Any value other than True(case insensitive) disables lazy mode')
     parser.add_argument('--autocast', dest='is_autocast', action='store_true', help='enable autocast mode on Gaudi')
+    parser.add_argument('--maskedkd', default=False, action='store_true')
+    parser.add_argument('--len_num_keep', default=98, type=int)
     args = parser.parse_args()
 
     if args.use_hpu == 0:
@@ -421,12 +437,12 @@ def main():
     set_seed(args)
 
     # Model & Tokenizer Setup
-    args, model = setup(args)
+    args, model, teahcer_model, loss_fct = setup(args)
 
     model.to(device)
 
     # Training
-    train(args, model)
+    train(args, model, teahcer_model, loss_fct)
 
 
 if __name__ == "__main__":
