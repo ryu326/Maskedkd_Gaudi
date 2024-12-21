@@ -18,6 +18,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 
 from models.modeling import VisionTransformer, CONFIGS
+from models.modeling_teacher import VisionTransformer_teacher, CONFIGS
 
 from vit_utils import scheduler
 from vit_utils.scheduler import WarmupLinearSchedule, WarmupCosineSchedule
@@ -122,7 +123,7 @@ def setup(args):
     model.to(args.device)
     num_params = count_parameters(model)    
     
-    teacher_model = VisionTransformer(teacher_config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
+    teacher_model = VisionTransformer_teacher(teacher_config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
     teacher_model.load_from(np.load(args.teacher_pretrained_dir))
     teacher_model.to(args.device)
     

@@ -273,7 +273,7 @@ class Transformer(nn.Module):
         return encoded, attn_weights
 
 
-class VisionTransformer(nn.Module):
+class VisionTransformer_teacher(nn.Module):
     def __init__(self, config, img_size=224, num_classes=21843, zero_head=False, vis=False):
         super(VisionTransformer, self).__init__()
         self.num_classes = num_classes
