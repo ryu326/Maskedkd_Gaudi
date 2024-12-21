@@ -137,7 +137,7 @@ def setup(args):
             teacher_model=teacher_model,
             distillation_type='soft',
             alpha = 0.5,
-            float = 1,
+            tau = 1,
             len_num_keep = args.len_num_keep,
             maskedkd = args.maskedkd
         )
