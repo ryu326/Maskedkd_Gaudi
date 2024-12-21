@@ -39,6 +39,7 @@ class DistillationLoss(torch.nn.Module):
         if self.distillation_type == 'soft':
             T = self.tau
 
+            # distillation_loss = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), 
             distillation_loss = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), 
                 F.softmax(teacher_outputs/T, dim=1)) * (T * T)
 
