@@ -18,7 +18,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 
 from models.modeling import VisionTransformer, CONFIGS
-from models.modeling_teacher import VisionTransformer_teacher, CONFIGS
+from models.modeling_teacher import VisionTransformer_teacher
 
 from vit_utils import scheduler
 from vit_utils.scheduler import WarmupLinearSchedule, WarmupCosineSchedule
