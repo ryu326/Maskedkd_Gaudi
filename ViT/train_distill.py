@@ -122,7 +122,7 @@ def setup(args):
     model.to(args.device)
     num_params = count_parameters(model)    
     
-    teacher_model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
+    teacher_model = VisionTransformer(teacher_config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
     teacher_model.load_from(np.load(args.teacher_pretrained_dir))
     teacher_model.to(args.device)
     
