@@ -36,12 +36,16 @@ class DistillationLoss(torch.nn.Module):
 
         base_loss = self.base_criterion(outputs, labels)
 
-        if self.distillation_type == 'soft':
-            T = self.tau
+        # if self.distillation_type == 'soft':
+        #     T = self.tau
+        #     distillation_loss = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), 
+        #         F.softmax(teacher_outputs/T, dim=1)) * (T * T)
 
-            # distillation_loss = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), 
-            distillation_loss = nn.KLDivLoss(reduction='batchmean')(F.log_softmax(outputs/T, dim=1), 
-                F.softmax(teacher_outputs/T, dim=1)) * (T * T)
+        # elif self.distillation_type == 'hard':
+        #     distillation_loss = F.cross_entropy(outputs, teacher_outputs.argmax(dim=1))
+        
+        if self.distillation_type == 'soft':
+            distillation_loss = kl_divergence_loss(outputs, teacher_outputs, self.tau)
 
         elif self.distillation_type == 'hard':
             distillation_loss = F.cross_entropy(outputs, teacher_outputs.argmax(dim=1))
@@ -49,3 +53,29 @@ class DistillationLoss(torch.nn.Module):
         loss = base_loss * (1 - self.alpha) + distillation_loss * self.alpha
 
         return loss
+
+
+
+def kl_divergence_loss(student_outputs, teacher_outputs, tau):
+    """
+    Calculate the Kullback-Leibler divergence loss between the student and teacher outputs.
+    
+    Parameters:
+    - student_outputs: The raw logits (before softmax) from the student model.
+    - teacher_outputs: The raw logits (before softmax) from the teacher model.
+    - tau: Temperature for scaling the logits (softmax scaling).
+    
+    Returns:
+    - The KL divergence loss, adjusted by the temperature (T * T).
+    """
+    # Apply softmax with temperature to the teacher's output
+    teacher_probs = F.softmax(teacher_outputs / tau, dim=1)
+    
+    # Apply log_softmax with temperature to the student's output
+    student_log_probs = F.log_softmax(student_outputs / tau, dim=1)
+    
+    # KL Divergence: sum(P * log(P / Q)) across all classes (dim=1 for each sample)
+    kl_loss = torch.sum(teacher_probs * (torch.log(teacher_probs) - student_log_probs), dim=1)
+    
+    # Average over the batch
+    return torch.mean(kl_loss) * (tau * tau)

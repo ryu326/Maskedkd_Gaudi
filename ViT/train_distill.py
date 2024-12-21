@@ -410,6 +410,7 @@ def main():
     parser.add_argument('--autocast', dest='is_autocast', action='store_true', help='enable autocast mode on Gaudi')
     parser.add_argument('--maskedkd', default=False, action='store_true')
     parser.add_argument('--len_num_keep', default=98, type=int)
+    parser.add_argument('--log_path', default='logs', type=str)
     args = parser.parse_args()
 
     if args.use_hpu == 0:
@@ -433,7 +434,7 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
                     datefmt='%m/%d/%Y %H:%M:%S',
                     level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN,
-                    filename='logs_distill.txt')  # 여기에 로그 파일 경로 추가
+                    filename=f'{args.log_path}.txt')  # 여기에 로그 파일 경로 추가
 
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s" %
                    (args.local_rank, args.device, args.n_gpu, bool(args.local_rank != -1)))
