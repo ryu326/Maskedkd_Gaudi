@@ -255,7 +255,8 @@ def validate(args, model):
         if best_acc < accuracy:
             save_model(args, model, optimizer, scheduler)
             best_acc = accuracy
-
+    if str(args.device) == 'hpu' and args.local_rank != -1:
+        dist.barrier()
     if args.local_rank in [-1, 0]:
         writer.close()
     logger.info("Best Accuracy: \t%f" % best_acc)
