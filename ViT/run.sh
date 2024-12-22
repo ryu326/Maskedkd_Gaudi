@@ -13,7 +13,7 @@ nohup mpirun -n 8 --bind-to core --map-by socket:PE=6 --rank-by core --report-bi
 python -u train.py --name ViT-L_16_no_distill --dataset imagenet1K --data_path /workspace/imagenet \
 --model_type ViT-L_16 --num_steps 20000 --eval_every 1000 --train_batch_size 64 \
 --gradient_accumulation_steps 2 --img_size 224 --learning_rate 0.06 --autocast \
---log_path logs/ViT-L_16_no_distill > running_log_no_distill.txt 2>&1 &
+--log_path logs/ViT-L_16_no_distill > running_ViT-L_16_no_distill.txt 2>&1 &
 
 wait $!
 
