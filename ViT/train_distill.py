@@ -113,7 +113,7 @@ def setup(args):
 
     model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes, vis=True)
     # if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
-    if  args.pretrained_dir is not None or args.support_inaccurate_perf_test == False :
+    if  args.pretrained_dir != None or args.support_inaccurate_perf_test == False :
         model.load_from(np.load(args.pretrained_dir))
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
@@ -364,7 +364,7 @@ def main():
                     help="Which variant to use.")
     parser.add_argument("--pretrained_dir", type=str, default=None,
                         help="Where to search for pretrained ViT models.")
-    parser.add_argument("--teacher_pretrained_dir", type=str, default="checkpoint/ViT-L_16-224.npz",
+    parser.add_argument("--teacher_pretrained_dir", type=str, default=None,
                         help="Where to search for pretrained ViT models.")
     parser.add_argument("--output_dir", default="output", type=str,
                         help="The output directory where checkpoints will be written.")
