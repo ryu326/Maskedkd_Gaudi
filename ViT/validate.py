@@ -366,7 +366,7 @@ def main():
     wandb.login(key="0b07a3f15852f6a64ba35e57d025dc421adbdc34")
     wandb.init(project="MaskedKD_gaudi", name=args.name)
     wandb.config.update(args)
-    train(args, model)
+    validate(args, model)
     wandb.finish()
 
 if __name__ == "__main__":
