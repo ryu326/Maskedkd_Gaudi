@@ -64,3 +64,21 @@ python -u train_distill.py --name naive_distill --dataset imagenet1K --data_path
 --log_path logs/log_naive > running_log_naive.txt 2>&1 &
 
 wait $!
+
+mpirun -n 8 --bind-to core --map-by socket:PE=6 --rank-by core --report-bindings --allow-run-as-root \
+python -u validate.py --name validate_ViT-L_16 --dataset imagenet1K --data_path /workspace/imagenet \
+--model_type ViT-L_16 --num_steps 20000 --eval_every 1000 --train_batch_size 64 \
+--gradient_accumulation_steps 2 --img_size 224 --learning_rate 0.06 --autocast \
+--pretrained_dir pretrained_models/ViT-L_16-224.npz \
+--log_path logs/validate_ViT-L_16
+
+mpirun -n 8 --bind-to core --map-by socket:PE=6 --rank-by core --report-bindings --allow-run-as-root \
+python -u train.py --name validate_ViT-L_16 --dataset imagenet1K --data_path /workspace/imagenet \
+--model_type ViT-L_16 --num_steps 3 --eval_every 1 --train_batch_size 64 \
+--gradient_accumulation_steps 2 --img_size 224 --learning_rate 0.06 --autocast \
+--pretrained_dir pretrained_models/ViT-L_16-224.npz \
+--log_path logs/validate_ViT-L_16
+
+
+
+wait $!
