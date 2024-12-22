@@ -450,6 +450,7 @@ def main():
     model.to(device)
 
     # Training
+    wandb.login(key="0b07a3f15852f6a64ba35e57d025dc421adbdc34")
     wandb.init(project="MaskedKD_gaudi", name=args.log_path)
     wandb.config.update(args)
     train(args, model, teahcer_model, loss_fct)
