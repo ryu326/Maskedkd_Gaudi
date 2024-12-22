@@ -110,6 +110,7 @@ def setup(args):
     model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
     if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
         model.load_from(np.load(args.pretrained_dir))
+        print('##### Load from pretrained dir ####')
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
 
@@ -249,11 +250,11 @@ def validate(args, model):
     global_step, best_acc = 0, 0
     end = time.time()
 
-
-    accuracy = valid(args, model, writer, test_loader, global_step)
-    if best_acc < accuracy:
-        save_model(args, model, optimizer, scheduler)
-        best_acc = accuracy
+    if args.local_rank in [-1, 0]:
+        accuracy = valid(args, model, writer, test_loader, global_step)
+        if best_acc < accuracy:
+            save_model(args, model, optimizer, scheduler)
+            best_acc = accuracy
 
     if args.local_rank in [-1, 0]:
         writer.close()
