@@ -1,0 +1,258 @@
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:45 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:33:52 - INFO - __main__ - classifier: token
+hidden_size: 768
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 3072
+  num_heads: 12
+  num_layers: 12
+
+12/22/2024 10:33:52 - INFO - __main__ - Training parameters Namespace(name='imagenet1k_TF', dataset='imagenet1K', model_type='ViT-B_16', pretrained_dir='checkpoint/ViT-B_16.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='log_no_distill', n_gpu=0, device=device(type='hpu'))
+12/22/2024 10:33:52 - INFO - __main__ - Total Parameter: 	86.6M
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:49 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:50 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:50 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 10:38:56 - INFO - __main__ - classifier: token
+hidden_size: 768
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 3072
+  num_heads: 12
+  num_layers: 12
+
+12/22/2024 10:38:56 - INFO - __main__ - Training parameters Namespace(name='imagenet1k_TF', dataset='imagenet1K', model_type='ViT-B_16', pretrained_dir='checkpoint/ViT-B_16.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='log_no_distill', n_gpu=0, device=device(type='hpu'))
+12/22/2024 10:38:56 - INFO - __main__ - Total Parameter: 	86.6M
+12/22/2024 10:38:57 - INFO - __main__ - ========    args    ========= 
+
+12/22/2024 10:38:57 - INFO - __main__ - Namespace(name='imagenet1k_TF', dataset='imagenet1K', model_type='ViT-B_16', pretrained_dir='checkpoint/ViT-B_16.npz', output_dir='output', img_size=224, train_batch_size=32, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='log_no_distill', n_gpu=0, device=device(type='hpu'))
+12/22/2024 10:38:57 - INFO - __main__ - ========            ========= 
+
+12/22/2024 10:39:04 - INFO - __main__ - ***** Running training *****
+12/22/2024 10:39:04 - INFO - __main__ - hpu
+12/22/2024 10:39:04 - INFO - __main__ -   Total optimization steps = 20000
+12/22/2024 10:39:04 - INFO - __main__ -   Instantaneous batch size (per CPU/HPU) = 32
+12/22/2024 10:39:04 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 512
+12/22/2024 10:39:04 - INFO - __main__ -   Gradient Accumulation steps = 2
+12/22/2024 10:42:00 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 10:42:00 - INFO - __main__ -   Num steps = 782
+12/22/2024 10:42:00 - INFO - __main__ -   Batch size = 64
+12/22/2024 10:43:14 - INFO - __main__ - 
+
+12/22/2024 10:43:14 - INFO - __main__ - Validation Results
+12/22/2024 10:43:14 - INFO - __main__ - Global Steps: 1000
+12/22/2024 10:43:14 - INFO - __main__ - Valid Loss: 0.88102
+12/22/2024 10:43:14 - INFO - __main__ - Valid Accuracy: 0.78472
+12/22/2024 10:43:14 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 10:46:00 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 10:46:00 - INFO - __main__ -   Num steps = 782
+12/22/2024 10:46:00 - INFO - __main__ -   Batch size = 64
+12/22/2024 10:47:11 - INFO - __main__ - 
+
+12/22/2024 10:47:11 - INFO - __main__ - Validation Results
+12/22/2024 10:47:11 - INFO - __main__ - Global Steps: 2000
+12/22/2024 10:47:11 - INFO - __main__ - Valid Loss: 0.85374
+12/22/2024 10:47:11 - INFO - __main__ - Valid Accuracy: 0.78454
+12/22/2024 10:49:58 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 10:49:58 - INFO - __main__ -   Num steps = 782
+12/22/2024 10:49:58 - INFO - __main__ -   Batch size = 64
+12/22/2024 10:51:09 - INFO - __main__ - 
+
+12/22/2024 10:51:09 - INFO - __main__ - Validation Results
+12/22/2024 10:51:09 - INFO - __main__ - Global Steps: 3000
+12/22/2024 10:51:09 - INFO - __main__ - Valid Loss: 0.82481
+12/22/2024 10:51:09 - INFO - __main__ - Valid Accuracy: 0.78784
+12/22/2024 10:51:09 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 10:53:55 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 10:53:55 - INFO - __main__ -   Num steps = 782
+12/22/2024 10:53:55 - INFO - __main__ -   Batch size = 64
+12/22/2024 10:55:06 - INFO - __main__ - 
+
+12/22/2024 10:55:06 - INFO - __main__ - Validation Results
+12/22/2024 10:55:06 - INFO - __main__ - Global Steps: 4000
+12/22/2024 10:55:06 - INFO - __main__ - Valid Loss: 0.80063
+12/22/2024 10:55:06 - INFO - __main__ - Valid Accuracy: 0.79244
+12/22/2024 10:55:06 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 10:57:51 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 10:57:51 - INFO - __main__ -   Num steps = 782
+12/22/2024 10:57:51 - INFO - __main__ -   Batch size = 64
+12/22/2024 10:59:03 - INFO - __main__ - 
+
+12/22/2024 10:59:03 - INFO - __main__ - Validation Results
+12/22/2024 10:59:03 - INFO - __main__ - Global Steps: 5000
+12/22/2024 10:59:03 - INFO - __main__ - Valid Loss: 0.78847
+12/22/2024 10:59:03 - INFO - __main__ - Valid Accuracy: 0.79480
+12/22/2024 10:59:03 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:01:50 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:01:50 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:01:50 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:03:02 - INFO - __main__ - 
+
+12/22/2024 11:03:02 - INFO - __main__ - Validation Results
+12/22/2024 11:03:02 - INFO - __main__ - Global Steps: 6000
+12/22/2024 11:03:02 - INFO - __main__ - Valid Loss: 0.78337
+12/22/2024 11:03:02 - INFO - __main__ - Valid Accuracy: 0.79726
+12/22/2024 11:03:02 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:05:48 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:05:48 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:05:48 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:07:00 - INFO - __main__ - 
+
+12/22/2024 11:07:00 - INFO - __main__ - Validation Results
+12/22/2024 11:07:00 - INFO - __main__ - Global Steps: 7000
+12/22/2024 11:07:00 - INFO - __main__ - Valid Loss: 0.77017
+12/22/2024 11:07:00 - INFO - __main__ - Valid Accuracy: 0.79772
+12/22/2024 11:07:00 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:09:48 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:09:48 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:09:48 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:11:00 - INFO - __main__ - 
+
+12/22/2024 11:11:00 - INFO - __main__ - Validation Results
+12/22/2024 11:11:00 - INFO - __main__ - Global Steps: 8000
+12/22/2024 11:11:00 - INFO - __main__ - Valid Loss: 0.77586
+12/22/2024 11:11:00 - INFO - __main__ - Valid Accuracy: 0.79770
+12/22/2024 11:13:43 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:13:43 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:13:43 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:14:56 - INFO - __main__ - 
+
+12/22/2024 11:14:56 - INFO - __main__ - Validation Results
+12/22/2024 11:14:56 - INFO - __main__ - Global Steps: 9000
+12/22/2024 11:14:56 - INFO - __main__ - Valid Loss: 0.77304
+12/22/2024 11:14:56 - INFO - __main__ - Valid Accuracy: 0.79894
+12/22/2024 11:14:56 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:17:43 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:17:43 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:17:43 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:18:55 - INFO - __main__ - 
+
+12/22/2024 11:18:55 - INFO - __main__ - Validation Results
+12/22/2024 11:18:55 - INFO - __main__ - Global Steps: 10000
+12/22/2024 11:18:55 - INFO - __main__ - Valid Loss: 0.76182
+12/22/2024 11:18:55 - INFO - __main__ - Valid Accuracy: 0.80234
+12/22/2024 11:18:55 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:21:44 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:21:44 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:21:44 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:22:55 - INFO - __main__ - 
+
+12/22/2024 11:22:55 - INFO - __main__ - Validation Results
+12/22/2024 11:22:55 - INFO - __main__ - Global Steps: 11000
+12/22/2024 11:22:55 - INFO - __main__ - Valid Loss: 0.74852
+12/22/2024 11:22:55 - INFO - __main__ - Valid Accuracy: 0.80520
+12/22/2024 11:22:55 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:25:43 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:25:43 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:25:43 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:26:55 - INFO - __main__ - 
+
+12/22/2024 11:26:55 - INFO - __main__ - Validation Results
+12/22/2024 11:26:55 - INFO - __main__ - Global Steps: 12000
+12/22/2024 11:26:55 - INFO - __main__ - Valid Loss: 0.74248
+12/22/2024 11:26:55 - INFO - __main__ - Valid Accuracy: 0.80560
+12/22/2024 11:26:55 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:29:44 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:29:44 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:29:44 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:30:55 - INFO - __main__ - 
+
+12/22/2024 11:30:55 - INFO - __main__ - Validation Results
+12/22/2024 11:30:55 - INFO - __main__ - Global Steps: 13000
+12/22/2024 11:30:55 - INFO - __main__ - Valid Loss: 0.73949
+12/22/2024 11:30:55 - INFO - __main__ - Valid Accuracy: 0.80824
+12/22/2024 11:30:55 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:33:42 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:33:42 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:33:42 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:34:54 - INFO - __main__ - 
+
+12/22/2024 11:34:54 - INFO - __main__ - Validation Results
+12/22/2024 11:34:54 - INFO - __main__ - Global Steps: 14000
+12/22/2024 11:34:54 - INFO - __main__ - Valid Loss: 0.73872
+12/22/2024 11:34:54 - INFO - __main__ - Valid Accuracy: 0.80834
+12/22/2024 11:34:54 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:37:40 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:37:40 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:37:40 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:38:52 - INFO - __main__ - 
+
+12/22/2024 11:38:52 - INFO - __main__ - Validation Results
+12/22/2024 11:38:52 - INFO - __main__ - Global Steps: 15000
+12/22/2024 11:38:52 - INFO - __main__ - Valid Loss: 0.72746
+12/22/2024 11:38:52 - INFO - __main__ - Valid Accuracy: 0.81118
+12/22/2024 11:38:52 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:41:39 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:41:39 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:41:39 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:42:52 - INFO - __main__ - 
+
+12/22/2024 11:42:52 - INFO - __main__ - Validation Results
+12/22/2024 11:42:52 - INFO - __main__ - Global Steps: 16000
+12/22/2024 11:42:52 - INFO - __main__ - Valid Loss: 0.72435
+12/22/2024 11:42:52 - INFO - __main__ - Valid Accuracy: 0.81152
+12/22/2024 11:42:52 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:45:40 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:45:40 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:45:40 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:46:52 - INFO - __main__ - 
+
+12/22/2024 11:46:52 - INFO - __main__ - Validation Results
+12/22/2024 11:46:52 - INFO - __main__ - Global Steps: 17000
+12/22/2024 11:46:52 - INFO - __main__ - Valid Loss: 0.71856
+12/22/2024 11:46:52 - INFO - __main__ - Valid Accuracy: 0.81374
+12/22/2024 11:46:52 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:49:43 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:49:43 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:49:43 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:50:55 - INFO - __main__ - 
+
+12/22/2024 11:50:55 - INFO - __main__ - Validation Results
+12/22/2024 11:50:55 - INFO - __main__ - Global Steps: 18000
+12/22/2024 11:50:55 - INFO - __main__ - Valid Loss: 0.71804
+12/22/2024 11:50:55 - INFO - __main__ - Valid Accuracy: 0.81264
+12/22/2024 11:53:40 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:53:40 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:53:40 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:54:53 - INFO - __main__ - 
+
+12/22/2024 11:54:53 - INFO - __main__ - Validation Results
+12/22/2024 11:54:53 - INFO - __main__ - Global Steps: 19000
+12/22/2024 11:54:53 - INFO - __main__ - Valid Loss: 0.71668
+12/22/2024 11:54:53 - INFO - __main__ - Valid Accuracy: 0.81378
+12/22/2024 11:54:53 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:57:41 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 11:57:41 - INFO - __main__ -   Num steps = 782
+12/22/2024 11:57:41 - INFO - __main__ -   Batch size = 64
+12/22/2024 11:58:54 - INFO - __main__ - 
+
+12/22/2024 11:58:54 - INFO - __main__ - Validation Results
+12/22/2024 11:58:54 - INFO - __main__ - Global Steps: 20000
+12/22/2024 11:58:54 - INFO - __main__ - Valid Loss: 0.71603
+12/22/2024 11:58:54 - INFO - __main__ - Valid Accuracy: 0.81384
+12/22/2024 11:58:54 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 11:58:57 - INFO - __main__ - Best Accuracy: 	0.813840
+12/22/2024 11:58:57 - INFO - __main__ - End Training!
