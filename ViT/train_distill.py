@@ -29,6 +29,7 @@ import habana_frameworks.torch.core as htcore
 import habana_frameworks.torch.utils.debug as htdebug
 
 from losses import *
+import wandb
 
 logger = logging.getLogger(__name__)
 
@@ -205,7 +206,7 @@ def valid(args, model, writer, test_loader, global_step):
     logger.info("Global Steps: %d" % global_step)
     logger.info("Valid Loss: %2.5f" % eval_losses.avg)
     logger.info("Valid Accuracy: %2.5f" % accuracy)
-
+    wandb.log({'Valid Loss': eval_losses.avg, 'Valid Accuracy': accuracy})
     writer.add_scalar("test/accuracy", scalar_value=accuracy, global_step=global_step)
     return accuracy
 
@@ -313,6 +314,7 @@ def train(args, model, teacher_model, loss_fct):
                 epoch_iterator.set_description(
                     "Training (%d / %d Steps) (loss=%2.5f images/sec=%2.5f)" % (global_step, t_total, losses.val, total_batch_size / (time.time()-end))
                 )
+                wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_last_lr()[0], global_step=global_step)
@@ -409,7 +411,7 @@ def main():
                         'Any value other than True(case insensitive) disables lazy mode')
     parser.add_argument('--autocast', dest='is_autocast', action='store_true', help='enable autocast mode on Gaudi')
     parser.add_argument('--maskedkd', default=False, action='store_true')
-    parser.add_argument('--len_num_keep', default=98, type=int)
+    parser.add_argument('--len_num_keep', default=196, type=int)
     parser.add_argument('--log_path', default='logs', type=str)
     args = parser.parse_args()
 
@@ -448,8 +450,10 @@ def main():
     model.to(device)
 
     # Training
+    wandb.init(project="MaskedKD_gaudi", name=args.log_path)
+    wandb.config.update(args)
     train(args, model, teahcer_model, loss_fct)
-
+    wandb.finish()
 
 if __name__ == "__main__":
     main()
