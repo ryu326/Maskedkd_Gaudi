@@ -191,7 +191,7 @@ def valid(args, model, writer, test_loader, global_step):
     return accuracy
 
 
-def train(args, model):
+def validate(args, model):
     """ Train the model """
     if args.local_rank in [-1, 0]:
         os.makedirs(args.output_dir, exist_ok=True)
@@ -248,67 +248,12 @@ def train(args, model):
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     end = time.time()
-    while True:
-        model.train()
-        epoch_iterator = tqdm(train_loader,
-                              desc="Training (X / X Steps) (loss=X.X)",
-                              bar_format="{l_bar}{r_bar}",
-                              dynamic_ncols=True,
-                              disable=args.local_rank not in [-1, 0])
-        for step, batch in enumerate(epoch_iterator):
-            with torch.autocast(device_type="hpu", dtype=torch.bfloat16, enabled=args.is_autocast):
-                batch = tuple(t.to(args.device) for t in batch)
-                x, y = batch
-                loss = model(x, y)
 
-            if args.gradient_accumulation_steps > 1:
-                loss = loss / args.gradient_accumulation_steps
 
-            # WA -MarkStep added for SFG support- will be removed later on
-            if (str(args.device) == 'hpu') and args.run_lazy_mode:
-                htcore.mark_step()
-
-            loss.backward()
-
-            if (str(args.device) == 'hpu') and args.run_lazy_mode:
-                htcore.mark_step()
-
-            if (step + 1) % args.gradient_accumulation_steps == 0:
-                losses.update(loss.item()*args.gradient_accumulation_steps)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
-                if (str(args.device) == 'hpu'):
-                    optimizer.step()
-                    if args.run_lazy_mode:
-                        htcore.mark_step()
-                else:
-                    optimizer.step()
-                optimizer.zero_grad()
-                scheduler.step()	# moved after optimizer step call (see https://pytorch.org/docs/stable/optim.html)
-
-                global_step += 1
-
-                epoch_iterator.set_description(
-                    "Training (%d / %d Steps) (loss=%2.5f images/sec=%2.5f)" % (global_step, t_total, losses.val, total_batch_size / (time.time()-end))
-                )
-                wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
-                if args.local_rank in [-1, 0]:
-                    writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
-                    writer.add_scalar("train/lr", scalar_value=scheduler.get_last_lr()[0], global_step=global_step)
-                if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
-                    accuracy = valid(args, model, writer, test_loader, global_step)
-                    if best_acc < accuracy:
-                        save_model(args, model, optimizer, scheduler)
-                        best_acc = accuracy
-                    model.train()
-
-                if global_step % t_total == 0:
-                    break
-                end = time.time()
-            if str(args.device) == 'hpu' and args.local_rank != -1:
-                dist.barrier()
-        losses.reset()
-        if global_step % t_total == 0:
-            break
+    accuracy = valid(args, model, writer, test_loader, global_step)
+    if best_acc < accuracy:
+        save_model(args, model, optimizer, scheduler)
+        best_acc = accuracy
 
     if args.local_rank in [-1, 0]:
         writer.close()
