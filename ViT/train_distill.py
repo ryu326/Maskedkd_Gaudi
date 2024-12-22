@@ -125,7 +125,12 @@ def setup(args):
     num_params = count_parameters(model)    
     
     teacher_model = VisionTransformer_teacher(teacher_config, args.img_size, zero_head=True, num_classes=num_classes, vis=False)
-    teacher_model.load_from(np.load(args.teacher_pretrained_dir))
+    if args.teacher_pretrained_dir.endwith('.npz'):
+        teacher_model.load_from(np.load(args.teacher_pretrained_dir))
+    else:
+        teacher_checkpoint = torch.load(args.teacher_pretrained_dir, map_location='cpu')
+        teacher_model.load_state_dict(teacher_checkpoint['model'], strict=False)
+        
     teacher_model.to(args.device)
     
     logger.info("{}".format(config))
