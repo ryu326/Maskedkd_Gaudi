@@ -108,7 +108,8 @@ def setup(args):
         num_classes = 100
 
     model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
-    if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    # if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    if  args.pretrained_dir != None:
         model.load_from(np.load(args.pretrained_dir))
         print('##### Load from pretrained dir ####')
     else:

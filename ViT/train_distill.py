@@ -113,7 +113,7 @@ def setup(args):
 
     model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes, vis=True)
     # if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
-    if  args.pretrained_dir != None or args.support_inaccurate_perf_test == False :
+    if  args.pretrained_dir != None:
         model.load_from(np.load(args.pretrained_dir))
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
