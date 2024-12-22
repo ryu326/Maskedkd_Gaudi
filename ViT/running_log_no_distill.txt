@@ -1,0 +1,275 @@
+[pggaudi-s022-nicl:00234] MCW rank 6 bound to socket 1[core 52[hwt 0-1]], socket 1[core 53[hwt 0-1]], socket 1[core 54[hwt 0-1]], socket 1[core 55[hwt 0-1]], socket 1[core 56[hwt 0-1]], socket 1[core 57[hwt 0-1]]: [../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..][../../../../../../../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 7 bound to socket 1[core 58[hwt 0-1]], socket 1[core 59[hwt 0-1]], socket 1[core 60[hwt 0-1]], socket 1[core 61[hwt 0-1]], socket 1[core 62[hwt 0-1]], socket 1[core 63[hwt 0-1]]: [../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..][../../../../../../../../../../../../../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..][../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 1 bound to socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../../../../../../../..][../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 2 bound to socket 0[core 12[hwt 0-1]], socket 0[core 13[hwt 0-1]], socket 0[core 14[hwt 0-1]], socket 0[core 15[hwt 0-1]], socket 0[core 16[hwt 0-1]], socket 0[core 17[hwt 0-1]]: [../../../../../../../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../..][../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 3 bound to socket 0[core 18[hwt 0-1]], socket 0[core 19[hwt 0-1]], socket 0[core 20[hwt 0-1]], socket 0[core 21[hwt 0-1]], socket 0[core 22[hwt 0-1]], socket 0[core 23[hwt 0-1]]: [../../../../../../../../../../../../../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../..][../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 4 bound to socket 1[core 40[hwt 0-1]], socket 1[core 41[hwt 0-1]], socket 1[core 42[hwt 0-1]], socket 1[core 43[hwt 0-1]], socket 1[core 44[hwt 0-1]], socket 1[core 45[hwt 0-1]]: [../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+[pggaudi-s022-nicl:00234] MCW rank 5 bound to socket 1[core 46[hwt 0-1]], socket 1[core 47[hwt 0-1]], socket 1[core 48[hwt 0-1]], socket 1[core 49[hwt 0-1]], socket 1[core 50[hwt 0-1]], socket 1[core 51[hwt 0-1]]: [../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..][../../../../../../BB/BB/BB/BB/BB/BB/../../../../../../../../../../../../../../../../../../../../../../../../../../../..]
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+train.py: error: unrecognized arguments: --log_path log_no_distill
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+/usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:366: UserWarning: torch.distributed.reduce_op is deprecated, please use torch.distributed.ReduceOp instead
+  warnings.warn(
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+usage: train.py
+       [-h]
+       --name
+       NAME
+       [--dataset {cifar10,cifar100,imagenet1K}]
+       [--model_type {ViT-B_16,ViT-B_32,ViT-L_16,ViT-L_32,ViT-H_14,R50-ViT-B_16}]
+       [--pretrained_dir PRETRAINED_DIR]
+       [--output_dir OUTPUT_DIR]
+       [--img_size IMG_SIZE]
+       [--train_batch_size TRAIN_BATCH_SIZE]
+       [--eval_batch_size EVAL_BATCH_SIZE]
+       [--eval_every EVAL_EVERY]
+       [--learning_rate LEARNING_RATE]
+       [--weight_decay WEIGHT_DECAY]
+       [--num_steps NUM_STEPS]
+       [--decay_type {cosine,linear}]
+       [--warmup_steps WARMUP_STEPS]
+       [--max_grad_norm MAX_GRAD_NORM]
+       [--local_rank LOCAL_RANK]
+       [--seed SEED]
+       [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+       [--internal-perf-measure]
+       [--loss_scale LOSS_SCALE]
+       [--data_path DATA_PATH]
+       [--cache-dataset]
+       [--use_hpu USE_HPU]
+       [--resume RESUME]
+       [--run_lazy_mode RUN_LAZY_MODE]
+       [--autocast]
+train.py: error: unrecognized arguments: --log_path log_no_distill
+train.py: error: unrecognized arguments: --log_path log_no_distill
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[4306,1],6]
+  Exit code:    2
+--------------------------------------------------------------------------
