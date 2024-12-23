@@ -236,17 +236,26 @@ def train(args, model, teacher_model, loss_fct):
 
     # Prepare optimizer and scheduler
     if (str(args.device) == 'hpu' and args.run_lazy_mode):
-        # use fused SGD for better performance
-        from habana_frameworks.torch.hpex.optimizers import FusedSGD
-        optimizer = FusedSGD(model.parameters(),
-                                lr=args.learning_rate,
-                                momentum=0.9,
-                                weight_decay=args.weight_decay)
+        if args.opt == 'sgd':
+            # use fused SGD for better performance
+            from habana_frameworks.torch.hpex.optimizers import FusedSGD
+            optimizer = FusedSGD(model.parameters(),
+                                    lr=args.learning_rate,
+                                    momentum=0.9,
+                                    weight_decay=args.weight_decay)
+        elif args.opt == 'adamw':
+            from habana_frameworks.torch.hpex.optimizers import FusedAdamW
+            optimizer = FusedAdamW(model.parameters(),
+                                    lr=args.learning_rate,
+                                    eps=1e-8,
+                                    weight_decay=args.weight_decay)
     else:
-        optimizer = torch.optim.SGD(model.parameters(),
-                                lr=args.learning_rate,
-                                momentum=0.9,
-                                weight_decay=args.weight_decay)
+        # optimizer = torch.optim.SGD(model.parameters(),
+        #                         lr=args.learning_rate,
+        #                         momentum=0.9,
+        #                         weight_decay=args.weight_decay)
+        pass
+        
     t_total = args.num_steps
     if args.decay_type == "cosine":
         scheduler = WarmupCosineSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
@@ -277,7 +286,8 @@ def train(args, model, teacher_model, loss_fct):
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     end = time.time()
-    while True:
+    # while True:
+    for e in range(args.epoch):
         model.train()
         epoch_iterator = tqdm(train_loader,
                               desc="Training (X / X Steps) (loss=X.X)",
@@ -340,8 +350,8 @@ def train(args, model, teacher_model, loss_fct):
             if str(args.device) == 'hpu' and args.local_rank != -1:
                 dist.barrier()
         losses.reset()
-        if global_step % t_total == 0:
-            break
+        # if global_step % t_total == 0:
+        #     break
 
     if args.local_rank in [-1, 0]:
         writer.close()
@@ -386,7 +396,7 @@ def main():
 
     parser.add_argument("--learning_rate", default=6e-2, type=float,
                         help="The initial learning rate for SGD.")
-    parser.add_argument("--weight_decay", default=0, type=float,
+    parser.add_argument("--weight_decay", default=0.05, type=float,
                         help="Weight deay if we apply some.")
     parser.add_argument("--num_steps", default=10000, type=int,
                         help="Total number of training epochs to perform.")
@@ -424,6 +434,7 @@ def main():
     parser.add_argument('--maskedkd', default=False, action='store_true')
     parser.add_argument('--len_num_keep', default=196, type=int)
     parser.add_argument('--log_path', default='logs', type=str)
+    parser.add_argument('--epoch', default=300, type=int)
     args = parser.parse_args()
 
     if args.use_hpu == 0:

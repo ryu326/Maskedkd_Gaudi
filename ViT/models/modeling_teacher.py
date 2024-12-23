@@ -351,6 +351,8 @@ class VisionTransformer_teacher(nn.Module):
 
 
 CONFIGS = {
+    'ViT-T_16': configs.get_t16_config(),
+    'ViT-S_16': configs.get_s16_config(),
     'ViT-B_16': configs.get_b16_config(),
     'ViT-B_32': configs.get_b32_config(),
     'ViT-L_16': configs.get_l16_config(),
