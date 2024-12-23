@@ -314,8 +314,8 @@ def train(args, model):
                         best_acc = accuracy
                     model.train()
 
-                if global_step % t_total == 0:
-                    break
+                # if global_step % t_total == 0:
+                #     break
                 end = time.time()
             if str(args.device) == 'hpu' and args.local_rank != -1:
                 dist.barrier()
