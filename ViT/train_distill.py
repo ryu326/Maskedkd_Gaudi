@@ -220,6 +220,9 @@ def valid(args, model, writer, test_loader, global_step):
 def train(args, model, teacher_model, loss_fct):
     """ Train the model """
     if args.local_rank in [-1, 0]:
+        wandb.login(key="0b07a3f15852f6a64ba35e57d025dc421adbdc34")
+        wandb.init(project="MaskedKD_gaudi", name=args.name)
+        wandb.config.update(args)
         os.makedirs(args.output_dir, exist_ok=True)
         writer = SummaryWriter(log_dir=os.path.join("logs", args.name))
 
@@ -320,10 +323,10 @@ def train(args, model, teacher_model, loss_fct):
                 epoch_iterator.set_description(
                     "Training (%d / %d Steps) (loss=%2.5f images/sec=%2.5f)" % (global_step, t_total, losses.val, total_batch_size / (time.time()-end))
                 )
-                wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_last_lr()[0], global_step=global_step)
+                    wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
                     accuracy = valid(args, model, writer, test_loader, global_step)
                     if best_acc < accuracy:
@@ -342,6 +345,8 @@ def train(args, model, teacher_model, loss_fct):
 
     if args.local_rank in [-1, 0]:
         writer.close()
+        wandb.finish()
+
     logger.info("Best Accuracy: \t%f" % best_acc)
     logger.info("End Training!")
 
@@ -456,11 +461,8 @@ def main():
     model.to(device)
 
     # Training
-    wandb.login(key="0b07a3f15852f6a64ba35e57d025dc421adbdc34")
-    wandb.init(project="MaskedKD_gaudi", name=args.name)
-    wandb.config.update(args)
+
     train(args, model, teahcer_model, loss_fct)
-    wandb.finish()
 
 if __name__ == "__main__":
     main()
