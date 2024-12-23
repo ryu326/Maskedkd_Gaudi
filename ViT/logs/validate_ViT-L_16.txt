@@ -1,0 +1,177 @@
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:02 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:03 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:03 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:21:14 - INFO - __main__ - classifier: token
+hidden_size: 1024
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 4096
+  num_heads: 16
+  num_layers: 24
+
+12/22/2024 13:21:14 - INFO - __main__ - Training parameters Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:21:14 - INFO - __main__ - Total Parameter: 	304.3M
+12/22/2024 13:21:15 - INFO - __main__ - ========    args    ========= 
+
+12/22/2024 13:21:15 - INFO - __main__ - Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=32, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:21:15 - INFO - __main__ - ========            ========= 
+
+12/22/2024 13:21:22 - INFO - __main__ - ***** Running training *****
+12/22/2024 13:21:22 - INFO - __main__ - hpu
+12/22/2024 13:21:22 - INFO - __main__ -   Total optimization steps = 20000
+12/22/2024 13:21:22 - INFO - __main__ -   Instantaneous batch size (per CPU/HPU) = 32
+12/22/2024 13:21:22 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 512
+12/22/2024 13:21:22 - INFO - __main__ -   Gradient Accumulation steps = 2
+12/22/2024 13:21:22 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 13:21:22 - INFO - __main__ -   Num steps = 782
+12/22/2024 13:21:22 - INFO - __main__ -   Batch size = 64
+12/22/2024 13:22:39 - INFO - __main__ - 
+
+12/22/2024 13:22:39 - INFO - __main__ - Validation Results
+12/22/2024 13:22:39 - INFO - __main__ - Global Steps: 0
+12/22/2024 13:22:39 - INFO - __main__ - Valid Loss: 6.90776
+12/22/2024 13:22:39 - INFO - __main__ - Valid Accuracy: 0.00100
+12/22/2024 13:22:39 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 13:22:44 - INFO - __main__ - Best Accuracy: 	0.001000
+12/22/2024 13:22:44 - INFO - __main__ - End Training!
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:20 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:24:31 - INFO - __main__ - classifier: token
+hidden_size: 1024
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 4096
+  num_heads: 16
+  num_layers: 24
+
+12/22/2024 13:24:31 - INFO - __main__ - Training parameters Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1, learning_rate=0.06, weight_decay=0, num_steps=3, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:24:31 - INFO - __main__ - Total Parameter: 	304.3M
+12/22/2024 13:24:32 - INFO - __main__ - ========    args    ========= 
+
+12/22/2024 13:24:32 - INFO - __main__ - Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=32, eval_batch_size=64, eval_every=1, learning_rate=0.06, weight_decay=0, num_steps=3, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:24:32 - INFO - __main__ - ========            ========= 
+
+12/22/2024 13:24:39 - INFO - __main__ - ***** Running training *****
+12/22/2024 13:24:39 - INFO - __main__ - hpu
+12/22/2024 13:24:39 - INFO - __main__ -   Total optimization steps = 3
+12/22/2024 13:24:39 - INFO - __main__ -   Instantaneous batch size (per CPU/HPU) = 32
+12/22/2024 13:24:39 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 512
+12/22/2024 13:24:39 - INFO - __main__ -   Gradient Accumulation steps = 2
+12/22/2024 13:26:19 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:19 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:19 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:20 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:20 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:20 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:20 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:20 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:26:30 - INFO - __main__ - classifier: token
+hidden_size: 1024
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 4096
+  num_heads: 16
+  num_layers: 24
+
+12/22/2024 13:26:30 - INFO - __main__ - Training parameters Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1, learning_rate=0.06, weight_decay=0, num_steps=3, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:26:30 - INFO - __main__ - Total Parameter: 	304.3M
+12/22/2024 13:26:32 - INFO - __main__ - ========    args    ========= 
+
+12/22/2024 13:26:32 - INFO - __main__ - Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=32, eval_batch_size=64, eval_every=1, learning_rate=0.06, weight_decay=0, num_steps=3, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:26:32 - INFO - __main__ - ========            ========= 
+
+12/22/2024 13:26:39 - INFO - __main__ - ***** Running training *****
+12/22/2024 13:26:39 - INFO - __main__ - hpu
+12/22/2024 13:26:39 - INFO - __main__ -   Total optimization steps = 3
+12/22/2024 13:26:39 - INFO - __main__ -   Instantaneous batch size (per CPU/HPU) = 32
+12/22/2024 13:26:39 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 512
+12/22/2024 13:26:39 - INFO - __main__ -   Gradient Accumulation steps = 2
+12/22/2024 13:26:56 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 13:26:56 - INFO - __main__ -   Num steps = 782
+12/22/2024 13:26:56 - INFO - __main__ -   Batch size = 64
+12/22/2024 13:28:15 - INFO - __main__ - 
+
+12/22/2024 13:28:15 - INFO - __main__ - Validation Results
+12/22/2024 13:28:15 - INFO - __main__ - Global Steps: 1
+12/22/2024 13:28:15 - INFO - __main__ - Valid Loss: 6.90776
+12/22/2024 13:28:15 - INFO - __main__ - Valid Accuracy: 0.00100
+12/22/2024 13:28:15 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 13:28:25 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 13:28:25 - INFO - __main__ -   Num steps = 782
+12/22/2024 13:28:25 - INFO - __main__ -   Batch size = 64
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 3, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 1, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 7, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 2, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 6, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 5, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 4, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:31 - WARNING - __main__ - Process rank: 0, device: hpu, n_gpu: 0, distributed training: True
+12/22/2024 13:42:42 - INFO - __main__ - classifier: token
+hidden_size: 1024
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+representation_size: null
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 4096
+  num_heads: 16
+  num_layers: 24
+
+12/22/2024 13:42:42 - INFO - __main__ - Training parameters Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=64, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:42:42 - INFO - __main__ - Total Parameter: 	304.3M
+12/22/2024 13:42:44 - INFO - __main__ - ========    args    ========= 
+
+12/22/2024 13:42:44 - INFO - __main__ - Namespace(name='validate_ViT-L_16', dataset='imagenet1K', model_type='ViT-L_16', pretrained_dir='pretrained_models/ViT-L_16-224.npz', output_dir='output', img_size=224, train_batch_size=32, eval_batch_size=64, eval_every=1000, learning_rate=0.06, weight_decay=0, num_steps=20000, decay_type='cosine', warmup_steps=500, max_grad_norm=1.0, local_rank=0, seed=42, gradient_accumulation_steps=2, support_inaccurate_perf_test=False, loss_scale=0, data_path='/workspace/imagenet', cache_dataset=False, use_hpu=1, resume=None, run_lazy_mode=True, is_autocast=True, log_path='logs/validate_ViT-L_16', n_gpu=0, device=device(type='hpu'))
+12/22/2024 13:42:44 - INFO - __main__ - ========            ========= 
+
+12/22/2024 13:42:51 - INFO - __main__ - ***** Running training *****
+12/22/2024 13:42:51 - INFO - __main__ - hpu
+12/22/2024 13:42:51 - INFO - __main__ -   Total optimization steps = 20000
+12/22/2024 13:42:51 - INFO - __main__ -   Instantaneous batch size (per CPU/HPU) = 32
+12/22/2024 13:42:51 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 512
+12/22/2024 13:42:51 - INFO - __main__ -   Gradient Accumulation steps = 2
+12/22/2024 13:42:51 - INFO - __main__ - ***** Running Validation *****
+12/22/2024 13:42:51 - INFO - __main__ -   Num steps = 782
+12/22/2024 13:42:51 - INFO - __main__ -   Batch size = 64
+12/22/2024 13:44:08 - INFO - __main__ - 
+
+12/22/2024 13:44:08 - INFO - __main__ - Validation Results
+12/22/2024 13:44:08 - INFO - __main__ - Global Steps: 0
+12/22/2024 13:44:08 - INFO - __main__ - Valid Loss: 6.90776
+12/22/2024 13:44:08 - INFO - __main__ - Valid Accuracy: 0.00100
+12/22/2024 13:44:08 - INFO - __main__ - Saved model checkpoint to [DIR: output]
+12/22/2024 13:44:13 - INFO - __main__ - Best Accuracy: 	0.001000
+12/22/2024 13:44:13 - INFO - __main__ - End Training!
