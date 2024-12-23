@@ -435,6 +435,7 @@ def main():
     parser.add_argument('--len_num_keep', default=196, type=int)
     parser.add_argument('--log_path', default='logs', type=str)
     parser.add_argument('--epoch', default=300, type=int)
+    parser.add_argument('--opt', default='adamw', type=str)
     args = parser.parse_args()
 
     if args.use_hpu == 0:
