@@ -288,6 +288,7 @@ def train(args, model, teacher_model, loss_fct):
     end = time.time()
     # while True:
     for e in range(args.epoch):
+        wandb.log({'Epoch': e})
         model.train()
         epoch_iterator = tqdm(train_loader,
                               desc="Training (X / X Steps) (loss=X.X)",
@@ -336,7 +337,7 @@ def train(args, model, teacher_model, loss_fct):
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_last_lr()[0], global_step=global_step)
-                    wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
+                    wandb.log({'Global Step': global_step, 'Train Loss': losses.val, 'Train lr': scheduler.get_last_lr()[0]})
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
                     accuracy = valid(args, model, writer, test_loader, global_step)
                     if best_acc < accuracy:

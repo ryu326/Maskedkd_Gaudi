@@ -262,6 +262,7 @@ def train(args, model):
     end = time.time()
     # while True:
     for e in range(args.epoch):
+        wandb.log({'Epoch': e})
         model.train()
         epoch_iterator = tqdm(train_loader,
                               desc="Training (X / X Steps) (loss=X.X)",
