@@ -257,15 +257,25 @@ class Transformer(nn.Module):
         self.embeddings = Embeddings(config, img_size=img_size)
         self.encoder = Encoder(config, vis)
 
-    def forward(self, input_ids):
+    def forward(self, input_ids, len_keep, maskedkd):
         embedding_output = self.embeddings(input_ids)
+        
+        x = embedding_output
+        if maskedkd == True:
+            B, _, D = x.shape  # batch, length, dim
+            cls_save = x[:, 0, :].unsqueeze(dim=1)
+            x = x[:, 1:, :]
+            x = torch.gather(x, dim=1, index=len_keep.unsqueeze(-1).repeat(1, 1, D))
+            x = torch.cat((cls_save, x), dim=1)
+        embedding_output = x
+        
         encoded, attn_weights = self.encoder(embedding_output)
         return encoded, attn_weights
 
 
-class VisionTransformer(nn.Module):
+class VisionTransformer_teacher(nn.Module):
     def __init__(self, config, img_size=224, num_classes=21843, zero_head=False, vis=False):
-        super(VisionTransformer, self).__init__()
+        super(VisionTransformer_teacher, self).__init__()
         self.num_classes = num_classes
         self.zero_head = zero_head
         self.classifier = config.classifier
@@ -273,8 +283,8 @@ class VisionTransformer(nn.Module):
         self.transformer = Transformer(config, img_size, vis)
         self.head = Linear(config.hidden_size, num_classes)
 
-    def forward(self, x, labels=None):
-        x, attn_weights = self.transformer(x)
+    def forward(self, x, len_keep, maskedkd, labels=None):
+        x, attn_weights = self.transformer(x, len_keep, maskedkd)
         logits = self.head(x[:, 0])
 
         if labels is not None:

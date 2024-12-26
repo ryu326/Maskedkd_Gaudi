@@ -30,6 +30,35 @@ def get_testing():
     config.representation_size = None
     return config
 
+def get_t16_config():
+    """Returns the ViT-S/16 configuration."""
+    config = ml_collections.ConfigDict()
+    config.patches = ml_collections.ConfigDict({'size': (16, 16)})
+    config.hidden_size = 192
+    config.transformer = ml_collections.ConfigDict()
+    config.transformer.mlp_dim = 768    
+    config.transformer.num_heads = 3
+    config.transformer.num_layers = 12
+    config.transformer.attention_dropout_rate = 0.0
+    config.transformer.dropout_rate = 0.1
+    config.classifier = 'token'
+    config.representation_size = None
+    return config
+
+def get_s16_config():
+    """Returns the ViT-S/16 configuration."""
+    config = ml_collections.ConfigDict()
+    config.patches = ml_collections.ConfigDict({'size': (16, 16)})
+    config.hidden_size = 384
+    config.transformer = ml_collections.ConfigDict()
+    config.transformer.mlp_dim = 1536    
+    config.transformer.num_heads = 6
+    config.transformer.num_layers = 12
+    config.transformer.attention_dropout_rate = 0.0
+    config.transformer.dropout_rate = 0.1
+    config.classifier = 'token'
+    config.representation_size = None
+    return config
 
 def get_b16_config():
     """Returns the ViT-B/16 configuration."""

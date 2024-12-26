@@ -26,6 +26,7 @@ from vit_utils.dist_util import get_world_size
 
 import habana_frameworks.torch.core as htcore
 import habana_frameworks.torch.utils.debug as htdebug
+import wandb
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +108,8 @@ def setup(args):
         num_classes = 100
 
     model = VisionTransformer(config, args.img_size, zero_head=True, num_classes=num_classes)
-    if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    # if os.path.exists(args.pretrained_dir) or args.support_inaccurate_perf_test == False :
+    if  args.pretrained_dir != None:
         model.load_from(np.load(args.pretrained_dir))
     else:
         logger.info("bypassed loading pre-trained weights - results will not be correct - internal perf test only")
@@ -185,7 +187,7 @@ def valid(args, model, writer, test_loader, global_step):
     logger.info("Global Steps: %d" % global_step)
     logger.info("Valid Loss: %2.5f" % eval_losses.avg)
     logger.info("Valid Accuracy: %2.5f" % accuracy)
-
+    wandb.log({'Valid Loss': eval_losses.avg, 'Valid Accuracy': accuracy})
     writer.add_scalar("test/accuracy", scalar_value=accuracy, global_step=global_step)
     return accuracy
 
@@ -195,6 +197,9 @@ def train(args, model):
     if args.local_rank in [-1, 0]:
         os.makedirs(args.output_dir, exist_ok=True)
         writer = SummaryWriter(log_dir=os.path.join("logs", args.name))
+        wandb.login(key="0b07a3f15852f6a64ba35e57d025dc421adbdc34")
+        wandb.init(project="MaskedKD_gaudi", name=args.name)
+        wandb.config.update(args)
 
     args.train_batch_size = args.train_batch_size // args.gradient_accumulation_steps
 
@@ -206,17 +211,25 @@ def train(args, model):
 
     # Prepare optimizer and scheduler
     if (str(args.device) == 'hpu' and args.run_lazy_mode):
-        # use fused SGD for better performance
-        from habana_frameworks.torch.hpex.optimizers import FusedSGD
-        optimizer = FusedSGD(model.parameters(),
-                                lr=args.learning_rate,
-                                momentum=0.9,
-                                weight_decay=args.weight_decay)
+        if args.opt == 'sgd':
+            # use fused SGD for better performance
+            from habana_frameworks.torch.hpex.optimizers import FusedSGD
+            optimizer = FusedSGD(model.parameters(),
+                                    lr=args.learning_rate,
+                                    momentum=0.9,
+                                    weight_decay=args.weight_decay)
+        elif args.opt == 'adamw':
+            from habana_frameworks.torch.hpex.optimizers import FusedAdamW
+            optimizer = FusedAdamW(model.parameters(),
+                                    lr=args.learning_rate,
+                                    eps=1e-8,
+                                    weight_decay=args.weight_decay)
     else:
-        optimizer = torch.optim.SGD(model.parameters(),
-                                lr=args.learning_rate,
-                                momentum=0.9,
-                                weight_decay=args.weight_decay)
+        # optimizer = torch.optim.SGD(model.parameters(),
+        #                         lr=args.learning_rate,
+        #                         momentum=0.9,
+        #                         weight_decay=args.weight_decay)
+        pass
     t_total = args.num_steps
     if args.decay_type == "cosine":
         scheduler = WarmupCosineSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
@@ -247,7 +260,10 @@ def train(args, model):
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     end = time.time()
-    while True:
+    # while True:
+    for e in range(args.epoch):
+        if args.local_rank in [-1, 0]:
+            wandb.log({'Epoch': e})
         model.train()
         epoch_iterator = tqdm(train_loader,
                               desc="Training (X / X Steps) (loss=X.X)",
@@ -292,6 +308,7 @@ def train(args, model):
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_last_lr()[0], global_step=global_step)
+                    wandb.log({'Global Step': global_step, 'Train Loss': losses.val})
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
                     accuracy = valid(args, model, writer, test_loader, global_step)
                     if best_acc < accuracy:
@@ -299,17 +316,18 @@ def train(args, model):
                         best_acc = accuracy
                     model.train()
 
-                if global_step % t_total == 0:
-                    break
+                # if global_step % t_total == 0:
+                #     break
                 end = time.time()
             if str(args.device) == 'hpu' and args.local_rank != -1:
                 dist.barrier()
         losses.reset()
-        if global_step % t_total == 0:
-            break
+        # if global_step % t_total == 0:
+        #     break
 
     if args.local_rank in [-1, 0]:
         writer.close()
+        wandb.finish()
     logger.info("Best Accuracy: \t%f" % best_acc)
     logger.info("End Training!")
 
@@ -322,11 +340,11 @@ def main():
                         help="Name of this run. Used for monitoring.")
     parser.add_argument("--dataset", choices=["cifar10", "cifar100", "imagenet1K"], default="cifar10",
                         help="Which downstream task.")
-    parser.add_argument("--model_type", choices=["ViT-B_16", "ViT-B_32", "ViT-L_16",
+    parser.add_argument("--model_type", choices=["ViT-T_16", "ViT-S_16", "ViT-B_16", "ViT-B_32", "ViT-L_16",
                                                  "ViT-L_32", "ViT-H_14", "R50-ViT-B_16"],
                         default="ViT-B_16",
                         help="Which variant to use.")
-    parser.add_argument("--pretrained_dir", type=str, default="checkpoint/ViT-B_16.npz",
+    parser.add_argument("--pretrained_dir", type=str, default=None,
                         help="Where to search for pretrained ViT models.")
     parser.add_argument("--output_dir", default="output", type=str,
                         help="The output directory where checkpoints will be written.")
@@ -343,7 +361,7 @@ def main():
 
     parser.add_argument("--learning_rate", default=6e-2, type=float,
                         help="The initial learning rate for SGD.")
-    parser.add_argument("--weight_decay", default=0, type=float,
+    parser.add_argument("--weight_decay", default=0.05, type=float,
                         help="Weight deay if we apply some.")
     parser.add_argument("--num_steps", default=10000, type=int,
                         help="Total number of training epochs to perform.")
@@ -378,6 +396,9 @@ def main():
                         help='run model in lazy execution mode(enabled by default).'
                         'Any value other than True(case insensitive) disables lazy mode')
     parser.add_argument('--autocast', dest='is_autocast', action='store_true', help='enable autocast mode on Gaudi')
+    parser.add_argument('--log_path', default='logs', type=str)
+    parser.add_argument('--epoch', default=300, type=int)
+    parser.add_argument('--opt', default='adamw', type=str)
     args = parser.parse_args()
 
     if args.use_hpu == 0:
@@ -400,7 +421,9 @@ def main():
     # Setup logging
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S',
-                        level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
+                        level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN,
+                        filename=f'{args.log_path}.txt')  # 여기에 로그 파일 경로 추가
+
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s" %
                    (args.local_rank, args.device, args.n_gpu, bool(args.local_rank != -1)))
 
@@ -414,7 +437,6 @@ def main():
 
     # Training
     train(args, model)
-
 
 if __name__ == "__main__":
     main()
